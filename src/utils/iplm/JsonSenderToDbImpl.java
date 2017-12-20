@@ -63,7 +63,8 @@ public class JsonSenderToDbImpl implements JsonSenderToDb{
 	    
 	        try {
 	            connection = getSqLiteConnection();
-	            String insertExample = "INSERT  INTO examples ( id, docTopicId, title, description, creationDate, lastEditDate)  VALUES (?,?,?,?,?,?)";
+	            String insertExample = "INSERT INTO examples( id, docTopicId, title, description, creationDate, lastEditDate)  VALUES (?,?,?,?,?,?)";
+	           System.out.println(example.getId());
 	            preparedStatement = connection.prepareStatement(insertExample);
 	            preparedStatement.setLong(1,example.getId());
 	            preparedStatement.setLong(2,example.getDocTopicId());
@@ -103,7 +104,7 @@ public class JsonSenderToDbImpl implements JsonSenderToDb{
             preparedStatement = connection.prepareStatement(insertTopic);
             preparedStatement.setLong(1,dokTag.getId());
             preparedStatement.setString(2,dokTag.getTitle());
-            preparedStatement.setDate(5, (java.sql.Date) dokTag.getCreationDate());
+            preparedStatement.setDate(3, (java.sql.Date) dokTag.getCreationDate());
             preparedStatement.executeUpdate();
             
         } catch (SQLException ex) {
@@ -132,13 +133,14 @@ public class JsonSenderToDbImpl implements JsonSenderToDb{
     
         try {
             connection = getSqLiteConnection();
-            String insertTopic = "INSERT  INTO docTagsVersions ( id, docTagId, title, creationDate, lastEditDate,)  VALUES (?,?,?,?,?)";
+            String insertTopic = "INSERT  INTO docTagsVersions( id, docTagId, title, creationDate, lastEditDate)  VALUES (?,?,?,?,?)";
+            System.out.println(docTagVersion.getId());
             preparedStatement = connection.prepareStatement(insertTopic);
             preparedStatement.setLong(1,docTagVersion.getId());
             preparedStatement.setLong(2, docTagVersion.getDoctagid());
-            preparedStatement.setString(2,docTagVersion.getTitle());
-            preparedStatement.setDate(5, (java.sql.Date) docTagVersion.getCreationDate());
-            preparedStatement.setDate(6, (java.sql.Date) docTagVersion.getLastEditDate()); 
+            preparedStatement.setString(3,docTagVersion.getTitle());
+            preparedStatement.setDate(4, (java.sql.Date) docTagVersion.getCreationDate());
+            preparedStatement.setDate(5, (java.sql.Date) docTagVersion.getLastEditDate()); 
             
             
             preparedStatement.executeUpdate();
@@ -182,7 +184,7 @@ public class JsonSenderToDbImpl implements JsonSenderToDb{
 	            String url = "jdbc:sqlite:C:\\Users\\MariusP\\Desktop\\sql\\SQLiteStudio\\sqliteTest.db";
 	            conn = DriverManager.getConnection(url);
 	            
-	            System.out.println("Connection to SQLite has been established.");
+	          //  System.out.println("Connection to SQLite has been established.");
 	            
 	        } catch (SQLException e) {
 	            System.out.println(e.getMessage());
